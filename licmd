@@ -1,0 +1,19 @@
+#!/usr/bin/ruby
+
+require "liquid"
+
+vars = {}
+
+for a in ARGV do
+    if (a =~ /^([[:alnum:]]+)=([[:alnum:]]+)$/) != nil
+        key = $~[1]
+        value = $~[2]
+
+        vars[key] = value
+    end
+end
+
+input = $stdin.read
+
+template = Liquid::Template.parse(input)
+puts template.render(vars)
